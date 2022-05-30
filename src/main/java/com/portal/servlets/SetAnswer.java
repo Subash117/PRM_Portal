@@ -36,13 +36,19 @@ public class SetAnswer extends HttpServlet {
         String id=session.getAttribute("id").toString();
         String pid=session.getAttribute("pid").toString();
         
-        BufferedReader reader = request.getReader();
-		
-		Gson gson = new Gson();
-
-		Answer set = gson.fromJson(reader, Answer.class);
-		
-		System.out.println(set.getAnswer());
+//        BufferedReader reader = request.getReader();
+//		
+//		Gson gson = new Gson();
+//
+//		Answer set = gson.fromJson(reader, Answer.class);
+//		
+//		System.out.println(set.getAnswer());
+        
+        Answer set=new Answer();
+        set.setQnNo(Integer.parseInt(request.getParameter("qno")));
+        set.setAnswer(request.getParameter("ans"));
+        
+        System.out.print(set.answer);
 		
 		JSONObject jo=new JSONObject();
 		
@@ -52,25 +58,9 @@ public class SetAnswer extends HttpServlet {
 			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/prmportal","root","CAPSlock007@");
 			
 			
-			PreparedStatement p=con.prepareStatement("select id from question where pid=? sort by id");
+			int qnid=set.qnNo;
 			
-			p.setInt(1,Integer.parseInt(pid));
-			
-			int currentqn=set.getQnNo();
-			
-			ResultSet rs=p.executeQuery();
-			
-			int temp=1;
-			rs.next();
-			while(temp!=currentqn)
-			{
-				rs.next();
-				temp++;
-			}
-			
-			int qnid=rs.getInt("id");
-			
-			p=con.prepareStatement("insert into answer(pid,uid,ans,qno) values(?,?,?,?)");
+			PreparedStatement p=con.prepareStatement("insert into answer(pid,uid,ans,qno) values(?,?,?,?)");
 			
 			p.setInt(1, Integer.parseInt(pid));
 			p.setInt(2, Integer.parseInt(id));
@@ -79,12 +69,13 @@ public class SetAnswer extends HttpServlet {
 			
 			p.executeUpdate();
 			
+			System.out.println(qnid);
 			
 			p=con.prepareStatement("select status from answer where qno=?");
 			
 			p.setInt(1, qnid);
 			
-			rs=p.executeQuery();
+			ResultSet rs=p.executeQuery();
 			
 			rs.next();
 			
@@ -97,9 +88,36 @@ public class SetAnswer extends HttpServlet {
 				status=rs.getString("status");
 			}
 			
+			System.out.print("Received Status "+status);
+			
+			if(status.equals("correct") || status.equals("partial"))
+			{
+				p=con.prepareStatement("select id from question where id>? and pid=?");
+				
+				p.setInt(1, qnid);
+				p.setInt(2, Integer.parseInt(pid));
+				
+				rs=p.executeQuery();
+				
+				if(rs.next())
+				{
+					qnid=rs.getInt("id");
+					p=con.prepareStatement("update candidate set currentqn=?");
+					
+					p.setInt(1, qnid);
+					
+					System.out.println("Moved to next Question");
+					p.executeUpdate();
+					response.sendRedirect("http://localhost:4200/dashboard");
+				}
+				else
+				{
+					response.getWriter().print("You successfully completed the exam!..");
+				}	
+			}
+			
 			
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

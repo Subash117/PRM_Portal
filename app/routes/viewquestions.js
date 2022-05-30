@@ -2,7 +2,7 @@ import Route from '@ember/routing/route';
 import { service } from '@ember/service';
 
 export default class ViewquestionsRoute extends Route {
-    @service router;
+  @service router;
   async beforeModel() {
     let response = await fetch('http://localhost:8080/PRM_portal/getsession', {
       credentials: 'include',
@@ -13,11 +13,12 @@ export default class ViewquestionsRoute extends Route {
     }
   }
 
-  async model(params)
-  {
-    let response=await fetch(`http://localhost:8080/PRM_portal/getallquestions?pid=${params.pid}`);
-    let data=await response.json();
-    console.log(data);
-    return data.questions;
+  async model(params) {
+    let response = await fetch(
+      `http://localhost:8080/PRM_portal/getallquestions?id=${params.uid}`
+    );
+    let data = await response.json();
+    data.uid=params.uid;
+    return data;
   }
 }

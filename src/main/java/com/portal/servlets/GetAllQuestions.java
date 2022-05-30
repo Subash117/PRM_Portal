@@ -22,7 +22,7 @@ public class GetAllQuestions extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String pid=request.getParameter("pid");
+		String id=request.getParameter("id");
 		
 		PrintWriter out=response.getWriter();
 		
@@ -41,10 +41,20 @@ public class GetAllQuestions extends HttpServlet {
         	Class.forName("com.mysql.cj.jdbc.Driver");  
 			Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/prmportal","root","CAPSlock007@");
 			
-			PreparedStatement p=con.prepareStatement("select id,qndesc from question where pid=?");
-			p.setInt(1,Integer.parseInt(pid));
+			PreparedStatement p=con.prepareStatement("select pid from candidate where id=?");
+			p.setInt(1, Integer.parseInt(id));
 			
 			ResultSet rs=p.executeQuery();
+			
+			rs.next();
+			
+			int pid=rs.getInt("pid");
+			
+			
+			p=con.prepareStatement("select id,qndesc from question where pid=?");
+			p.setInt(1,pid);
+			
+			rs=p.executeQuery();
 			
 			JSONArray ja=new JSONArray();
 			

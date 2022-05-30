@@ -35,6 +35,7 @@ public class GetAnswer extends HttpServlet {
 		String id=session.getAttribute("id").toString();
 		
 		String qid=request.getParameter("qnid");
+		String uid=request.getParameter("uid");
 		
 		if(id.equals("admin"))
 		{
@@ -43,9 +44,11 @@ public class GetAnswer extends HttpServlet {
 				Class.forName("com.mysql.cj.jdbc.Driver");  
 				Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/prmportal","root","CAPSlock007@");
 				
-				PreparedStatement p=con.prepareStatement("select id,ans from answer where id=?");
+				
+				PreparedStatement p=con.prepareStatement("select id,ans from answer where qno=? and uid=? order by id desc");
 				
 				p.setInt(1, Integer.parseInt(qid));
+				p.setInt(2, Integer.parseInt(uid));
 				
 				ResultSet rs=p.executeQuery();
 				
@@ -60,8 +63,18 @@ public class GetAnswer extends HttpServlet {
 					
 					ja.put(jo);
 				}
-				System.out.print("Gets Answer Admin");
+				System.out.println("Gets Answer Admin");
 				mainObj.put("answers", ja);
+				
+				p=con.prepareStatement("select qndesc from question where id=?");
+				
+				p.setInt(1, Integer.parseInt(qid));
+				
+				rs=p.executeQuery();
+				
+				rs.next();
+				
+				mainObj.put("question", rs.getString("qndesc"));
 				
 				response.getWriter().print(mainObj);
 			}

@@ -15,5 +15,6 @@ Router.map(function () {
   this.route('dashboard');
   this.route('start-process', { path: '/process/:pid' });
   this.route('answers');
-  this.route('viewquestions',{path: '/viewquestions/:pid'});
+  this.route('viewquestions', { path: '/viewquestions/:uid' });
+  this.route('dashboard-loading');
 });

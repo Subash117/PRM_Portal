@@ -36,29 +36,47 @@ public class StartProcess extends HttpServlet {
 				try
 				{
 					Class.forName("com.mysql.cj.jdbc.Driver");  
-					Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/prmportal","root","CAPSlock007@");  
+					Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/prmportal","root","CAPSlock007@"); 
 					
-					PreparedStatement p=con.prepareStatement("update process set started=? where id=?");
+					PreparedStatement p=con.prepareStatement("select started from process where id=?");
+					p.setInt(1, Integer.parseInt(id));
+					
+					ResultSet rs=p.executeQuery();
+					
+					rs.next();
+					
+					if(rs.getInt("started")==0)
+					{
+					
+					p=con.prepareStatement("update process set started=? where id=?");
 					
 					p.setInt(1, 1);
 					p.setInt(2,Integer.parseInt(id));
 					
 					p.executeUpdate();
 					
+					p=con.prepareStatement("select id from question where pid=?");
 					
+					p.setInt(1, Integer.parseInt(id));
+					
+					rs=p.executeQuery();
+					
+					rs.next();
+					
+					int currentqn=rs.getInt("id");
 					
 					p=con.prepareStatement("update candidate set currentqn=? where pid=?");
 					
-					p.setInt(1, 1);
+					p.setInt(1, currentqn);
 					p.setInt(2, Integer.parseInt(id));
 					
 					p.executeUpdate();
-					
+				}
 					p=con.prepareStatement("select id,name,sesid from candidate where pid=?");
 					
 					p.setInt(1,Integer.parseInt(id));
 					
-					ResultSet rs=p.executeQuery();
+					rs=p.executeQuery();
 					
 					JSONArray ja=new JSONArray();
 					while(rs.next())

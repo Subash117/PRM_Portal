@@ -11,7 +11,7 @@
         <tr>
             <td>{{candidate.id}}</td>
 
-            <td><LinkTo @route="viewquestions" @model={{@model.pid}}>{{candidate.name}}</LinkTo></td>
+            <td><LinkTo @route="viewquestions" @model={{candidate.id}}>{{candidate.name}}</LinkTo></td>
             {{!-- <td><LinkTo @route="viewquestions" @query={{hash pid=@model.pid uid=candidate.id}}>{{candidate.name}}</LinkTo></td> --}}
             {{#if candidate.sesid}}
                 <td><i style="background-color: #0dc00d;">Logged In</i></td>

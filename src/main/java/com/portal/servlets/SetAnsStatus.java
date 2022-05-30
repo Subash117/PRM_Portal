@@ -3,6 +3,7 @@ package com.portal.servlets;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -28,6 +29,8 @@ public class SetAnsStatus extends HttpServlet {
 		
 		String id=session.getAttribute("id").toString();
 		
+		String ansid=request.getParameter("ansid");
+		
 		String status =request.getParameter("status");
 		
 		if(id.equals("admin"))
@@ -37,8 +40,14 @@ public class SetAnsStatus extends HttpServlet {
 				Class.forName("com.mysql.cj.jdbc.Driver");  
 				Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/prmportal","root","CAPSlock007@");
 				
+				PreparedStatement p=con.prepareStatement("update answer set status=? where id=?");
 				
+				p.setString(1, status);
+				p.setInt(2, Integer.parseInt(ansid));
 				
+				p.executeUpdate();
+				
+				response.sendRedirect("http://localhost:4200/admin-dashboard");
 			}
 			catch(Exception e)
 			{

@@ -9,10 +9,10 @@
         <th>Qn Desc</th>
         <th></th>
     </tr>
-    {{#each @model as |set|}}
+    {{#each @model.questions as |set|}}
         <tr>
             <td>{{set.id}}</td>
-            <td><LinkTo @route="viewquestions" @query={{hash qnid=set.id}}>{{set.question}}</LinkTo></td>
+            <td><LinkTo @route="answers" @query={{hash qnid=set.id uid=@model.uid}}>{{set.question}}</LinkTo></td>
             <td></td>
         </tr>
     {{/each}}
