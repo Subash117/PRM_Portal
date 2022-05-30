@@ -1,0 +1,23 @@
+{{page-title "Dashboard"}}
+<h1>Candidate Dashboard</h1>
+<form style="float:right;" action="http://localhost:8080/PRM_portal/logout">
+    <input class="button" type="submit" value="LogOut" />
+</form>
+
+
+
+{{#if this.currentQues}}
+    <br><div class="container" style="width: 80%;">
+        <h2>Question No : {{this.currentQuesNo}}</h2>
+        <h3>{{this.currentQues}}</h3>
+        <Textarea style="font-size: 20px;" @value=""  placeholder="Type Your Answer Here" id="ans" />
+        <br><input {{on 'click' this.sendAns}} type="button"  row="10" class="button" value="Submit">
+    </div>
+{{else}}
+    <div>
+        <center>
+            <button class="button" type="button" {{on 'click' this.viewQuestion}}>Start</button>
+        </center>
+    </div>
+{{/if}}
+

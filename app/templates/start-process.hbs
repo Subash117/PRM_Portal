@@ -1,0 +1,23 @@
+{{page-title "StartProcess"}}
+<LinkTo @route="admin-dashboard">Home</LinkTo>
+<h1>Currently Signed Up Candidates</h1>
+<table>
+    <tr>
+        <th>Candidate Id</th>
+        <th>Candidate Name</th>
+        <th>Login Status</th>
+    </tr>
+    {{#each @model.ques as |candidate|}}
+        <tr>
+            <td>{{candidate.id}}</td>
+
+            <td><LinkTo @route="viewquestions" @model={{@model.pid}}>{{candidate.name}}</LinkTo></td>
+            {{!-- <td><LinkTo @route="viewquestions" @query={{hash pid=@model.pid uid=candidate.id}}>{{candidate.name}}</LinkTo></td> --}}
+            {{#if candidate.sesid}}
+                <td><i style="background-color: #0dc00d;">Logged In</i></td>
+            {{else}}
+                <td><i style="background-color: #ff0000;">Logged Out</i></td>
+            {{/if}}
+        </tr>
+    {{/each}}
+</table>

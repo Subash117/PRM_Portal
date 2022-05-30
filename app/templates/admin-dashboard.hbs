@@ -1,0 +1,25 @@
+{{page-title "AdminDashboard"}}
+<h1>Admin Dashboard</h1>
+<LinkTo class="button" @route="create-process">Create Process</LinkTo>
+<form style="float:right;" action="http://localhost:8080/PRM_portal/logout">
+    <input class="button" type="submit" value="LogOut" />
+</form>
+
+<table>
+    <tr>
+        <th>Set Id</th>
+        <th>Set Name</th>
+        <th></th>
+    </tr>
+    {{#each @model.process as |p|}}
+        <tr>
+            <td>{{p.id}}</td>
+            <td>{{p.name}}</td>
+            {{#if p.started}}
+                <td><center><LinkTo class="button" @model={{p.id}} @route="start-process">Started</LinkTo></center></td>
+            {{else}}
+                <td><center><LinkTo class="button" @model={{p.id}} @route="start-process">Start</LinkTo></center></td>
+            {{/if}}
+        </tr>
+    {{/each}}
+</table>

@@ -1,0 +1,21 @@
+{{page-title "Signup"}}
+<form method="post" class="container" action="http://localhost:8080/PRM_portal/signup">
+        <center><h2>Sign Up</h2></center>
+        <p>Name:</p>
+        <input type="text" name="name" class="text-box" required><br>
+        <input type="hidden" name="pid" value={{this.id}}>
+        <p>Mobile: </p>
+        <input type="text" name="mob" class="text-box" required><br>
+        <p>Email-Id: </p>
+        <input type="text" name="email" class="text-box" required><br>
+        <p>Address:</p>
+        <input type="text" name="add" class="text-box"><br>
+        <p>College: </p>
+        <input type="text" name="clg" class="text-box"><br>
+        <p>College Year: </p>
+        <input type="number" name="year" class="text-box"><br>
+        <p>Set Password: </p>
+        <input type="password" name="pass" class="text-box"><br>
+        <center><br><input class="button-red" type="submit" value="Submit" ></center>
+    </form>
+

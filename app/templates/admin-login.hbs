@@ -1,0 +1,14 @@
+{{page-title "Admin-Login"}}
+
+{{page-title "Login"}}
+<div class="container">
+    <form method="post" action="http://localhost:8080/PRM_portal/login">
+        <center><h2>Admin Log-in</h2></center>
+        <p>Email-Id: </p>
+        <input type="text" id="email" name="email" class="text-box"required><br>
+        <p>Password:</p>
+        <input type="password" id="pass" name="pass" class="text-box" required/><br><br>
+        <input type="hidden" name="class" value="admin" />
+        <center><input class="button" type="submit" value="LogIn" class="button"></center>
+    </form>
+</div>

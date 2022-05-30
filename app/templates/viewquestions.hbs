@@ -1,0 +1,19 @@
+{{page-title "Viewquestions"}}
+{{outlet}}
+<h1>Questions</h1>
+
+
+<table>
+    <tr>
+        <th>Qn Id</th>
+        <th>Qn Desc</th>
+        <th></th>
+    </tr>
+    {{#each @model as |set|}}
+        <tr>
+            <td>{{set.id}}</td>
+            <td><LinkTo @route="viewquestions" @query={{hash qnid=set.id}}>{{set.question}}</LinkTo></td>
+            <td></td>
+        </tr>
+    {{/each}}
+</table>

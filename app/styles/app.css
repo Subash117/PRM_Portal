@@ -1,0 +1,129 @@
+body
+{
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    background-color: rgb(160, 151, 141);
+    margin-right: 100px;
+}
+.nav-bar
+{
+    width: 100%;
+    background-color: rgb(44, 84, 85);
+    padding: 3px;
+    padding-left: 50px;
+    
+}
+.nav-item
+{
+    display: inline-block;
+    padding: 7px;
+    background-color: teal;
+}
+.nav-item:hover
+{
+    background-color: rgb(74, 156, 129);
+}
+.nav-ele
+{
+    text-decoration: none;
+    color: azure;
+    padding: 10px;
+}
+
+.container
+{
+    margin: auto;
+    width: 30%;
+    background-color: rgb(105, 94, 82);
+    padding: 20px;
+    border-radius: 3px;
+}
+
+.button
+{
+    padding: 7px;
+    background-color: rgb(108, 135, 194);
+    border: none;
+    font-weight: bold;
+    border-radius: 3px;
+    color: black;
+    text-decoration: none;
+}
+.button-red
+{
+    padding: 7px;
+    background-color: rgb(197, 42, 36);
+    border: none;
+    font-weight: bold;
+    border-radius: 3px;
+    color: black;
+    text-decoration: none;
+    width:fit-content;
+}
+.button:hover
+{
+    cursor: pointer;
+    background-color: rgb(106, 121, 151);
+}
+
+.button-red:hover
+{
+    cursor: pointer;
+    background-color: rgb(133, 25, 25);
+}
+
+.text-box
+{
+    width: 90%;
+    height: 15px;
+    border-radius: 3px;
+    border: none;
+    padding: 5px;
+}
+
+.text-box:focus
+{
+    outline: none;
+    background-color: rgb(184, 179, 179);
+}
+textarea
+{
+    resize: vertical;
+    height: 35px;
+    width: 90%;
+    border-radius: 3px;
+    border: none;
+    padding: 5px;
+} 
+
+textarea:focus-visible
+{
+    outline: none;
+    background-color: rgb(248, 189, 155);
+}
+table, th, td {
+    border: 1px solid ;
+    border-collapse: collapse;
+}
+td
+{
+    height: 50px;
+}
+table
+{
+    width: 75%;
+    margin: auto;
+}
+.loader {
+    border: 16px solid #f3f3f3; /* Light grey */
+    border-top: 16px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+    margin: auto;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }

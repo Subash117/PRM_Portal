@@ -1,0 +1,14 @@
+{{page-title "CreateProcess"}}
+
+<form class="container" action="http://localhost:8080/">
+    <h1>Create Question Set</h1>
+    <p>Give a name for the Set: </p>
+    <Input @type="text" class="text-box" id="name" @value=""/><br>
+    
+    {{#each this.questionNames as |question|}}
+        <br><Textarea @value="" placeholder="Enter the question here..." id={{question}}/>
+        <button type="button" {{on "click" (fn this.removeBox question)}}class="button">X</button>
+    {{/each}}
+    <br><button type="button" {{on 'click' this.addBox}} class="button">+ Add Question</button>
+    <br><br><input type="button" {{on 'click' this.addQuestions}} value="Create" class="button" />  
+</form>
