@@ -45,7 +45,7 @@ public class GetAnswer extends HttpServlet {
 				Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/prmportal","root","CAPSlock007@");
 				
 				
-				PreparedStatement p=con.prepareStatement("select id,ans from answer where qno=? and uid=? order by id desc");
+				PreparedStatement p=con.prepareStatement("select id,ans,status from answer where qno=? and uid=? order by id desc");
 				
 				p.setInt(1, Integer.parseInt(qid));
 				p.setInt(2, Integer.parseInt(uid));
@@ -60,6 +60,16 @@ public class GetAnswer extends HttpServlet {
 					JSONObject jo=new JSONObject();
 					jo.put("id", rs.getInt("id"));
 					jo.put("ans", rs.getString("ans"));
+					
+					String status=rs.getString("status");
+					if(status==null)
+					{
+						jo.put("status", 0);
+					}
+					else
+					{
+						jo.put("status",1);
+					}
 					
 					ja.put(jo);
 				}

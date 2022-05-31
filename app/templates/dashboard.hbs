@@ -5,10 +5,12 @@
 </form>
 
 <br><div class="container" style="width: 80%;">
-    <h2>{{@model.question}}</h2>
-    <form action="http://localhost:8080/PRM_portal/setanswer" method="post">
-        <input type="hidden" value={{@model.qid}} name="qno" />
-        <Textarea style="font-size: 20px;" name="ans" @value=""  placeholder="Type Your Answer Here" id="ans" />
-        <br><input type="submit" row="10" class="button" value="Submit">
-    </form>
+        <h2>{{@model.question}}</h2>
+        <form action="http://localhost:8080/PRM_portal/setanswer" method="post">
+            <input type="hidden" value={{@model.qid}} name="qno" />
+            <Textarea style="font-size: 20px;" name="ans" @value=""  placeholder="Type Your Answer Here" id="ans" />
+            <br><input type="submit" row="10" class="button" {{on 'click' this.test}} value="Submit">
+        </form>
+    
+    <p>{{this.loadingmsg}}</p>
 </div>

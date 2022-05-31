@@ -14,7 +14,7 @@
         <tr>
             <td>{{p.id}}</td>
             <td>{{p.name}}</td>
-            <td><center><LinkTo @route='signup' @query={{hash id=p.id}} class="button">Sign Up</LinkTo></center></td>
+            <td><center><LinkTo @route='signup' @model={{p.id}} class="button">Sign Up</LinkTo></center></td>
         </tr>
     {{/each}}
 </table>

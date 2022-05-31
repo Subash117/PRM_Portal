@@ -7,13 +7,12 @@
     <tr>
         <th>Qn Id</th>
         <th>Qn Desc</th>
-        <th></th>
+        
     </tr>
     {{#each @model.questions as |set|}}
         <tr>
             <td>{{set.id}}</td>
             <td><LinkTo @route="answers" @query={{hash qnid=set.id uid=@model.uid}}>{{set.question}}</LinkTo></td>
-            <td></td>
         </tr>
     {{/each}}
 </table>

@@ -9,7 +9,7 @@ export default class Router extends EmberRouter {
 Router.map(function () {
   this.route('admin-login');
   this.route('login');
-  this.route('signup');
+  this.route('signup', { path: '/signup/:pid' });
   this.route('admin-dashboard');
   this.route('create-process');
   this.route('dashboard');
@@ -17,4 +17,6 @@ Router.map(function () {
   this.route('answers');
   this.route('viewquestions', { path: '/viewquestions/:uid' });
   this.route('dashboard-loading');
+  this.route('notfound', { path: '/*path' });
+  this.route('finished');
 });

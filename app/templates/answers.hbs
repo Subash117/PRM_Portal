@@ -6,20 +6,28 @@
         <th></th>
     </tr>
     {{#each @model.answers as |answer|}}
+        
         <tr>
             <td>{{answer.ans}}</td>
+            
             <td>
-                <form action="http://localhost:8080/PRM_portal/setansstatus">
-                    <input type="hidden" value={{answer.id}} name="ansid" /> 
-                    <input type="radio" id="correct" name="status" value="correct">
-                    <label for="correct">Correct</label>
-                    <input type="radio" id="partial" name="status" value="partial">
-                    <label for="partial">Partial</label> 
-                    <input type="radio" id="wrong" name="status" value="wrong">
-                    <label for="wrong">Wrong</label><br>
-                    <input type="submit" value="Submit">
-                </form>
+                {{#if answer.status}}
+                    <i>Already Responded</i>
+                {{else}}
+                    <form action="http://localhost:8080/PRM_portal/setansstatus">
+                        <input type="hidden" value={{answer.id}} name="ansid" /> 
+                        <input type="radio" id="correct" name="status" value="correct">
+                        <label for="correct">Correct</label>
+                        <input type="radio" id="partial" name="status" value="partial">
+                        <label for="partial">Partial</label> 
+                        <input type="radio" id="wrong" name="status" value="wrong">
+                        <label for="wrong">Wrong</label><br>
+                        <input type="submit" class="button" value="Submit">
+                    </form>
+                {{/if}}
             </td>
+            
         </tr>
+        
     {{/each}}
 </table>

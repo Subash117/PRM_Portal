@@ -133,4 +133,14 @@
     <servlet-name>GetAllQuestions</servlet-name>
     <url-pattern>/getallquestions</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>CheckSignUp</display-name>
+    <servlet-name>CheckSignUp</servlet-name>
+    <servlet-class>com.portal.servlets.CheckSignUp</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>CheckSignUp</servlet-name>
+    <url-pattern>/checksignup</url-pattern>
+  </servlet-mapping>
 </web-app>

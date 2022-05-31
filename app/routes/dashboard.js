@@ -18,6 +18,10 @@ export default class DashboardRoute extends Route {
     });
     data = await response.json();
 
+    if (data.finished) {
+      this.router.transitionTo('finished');
+    }
+
     while (!data.started) {
       response = await fetch(
         'http://localhost:8080/PRM_portal/getprocessstate',
@@ -26,9 +30,7 @@ export default class DashboardRoute extends Route {
         }
       );
       data = await response.json();
-      console.log(data.started);
     }
-    console.log(data);
     return data;
   }
 }

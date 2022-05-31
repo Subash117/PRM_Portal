@@ -18,7 +18,7 @@ export default class ViewquestionsRoute extends Route {
       `http://localhost:8080/PRM_portal/getallquestions?id=${params.uid}`
     );
     let data = await response.json();
-    data.uid=params.uid;
+    data.uid = params.uid;
     return data;
   }
 }

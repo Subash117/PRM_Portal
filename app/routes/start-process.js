@@ -17,6 +17,8 @@ export default class StartProcessRoute extends Route {
     );
     let data = await response.json();
     data.pid = params.pid;
+
+    console.log(data);
     return data;
   }
 }

@@ -5,6 +5,7 @@ import { action } from '@ember/object';
 export default class DashboardController extends Controller {
   @tracked currentQues;
   @tracked currentQuesNo = 0;
+  @tracked loadingmsg;
 
   @action
   async viewQuestion() {
@@ -30,5 +31,11 @@ export default class DashboardController extends Controller {
       mode: 'no-cors',
       body: JSON.stringify({ qnNo: this.currentQuesNo, answer: answer }),
     });
+  }
+
+  @action test() {
+    console.log('Test runs');
+    this.loadingmsg =
+      'Answer Submitted....Please wait until response from admin';
   }
 }

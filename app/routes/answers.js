@@ -3,7 +3,7 @@ import Route from '@ember/routing/route';
 export default class AnswersRoute extends Route {
   queryParams = {
     qnid: { refreshModel: false },
-    uid:  { refreshModel: false }
+    uid: { refreshModel: false },
   };
 
   async model(params) {
@@ -12,6 +12,7 @@ export default class AnswersRoute extends Route {
       { credentials: 'include' }
     );
     let data = await response.json();
+    console.log(data);
     return data;
   }
 }

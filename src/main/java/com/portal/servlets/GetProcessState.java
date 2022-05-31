@@ -13,7 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class GetProcessState extends HttpServlet {
@@ -35,7 +34,6 @@ public class GetProcessState extends HttpServlet {
         response.addHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE, HEAD");
         response.addHeader("Access-Control-Allow-Headers", "X-PINGOTHER, Origin, X-Requested-With, Content-Type, Accept");
         response.addHeader("Access-Control-Max-Age", "1728000");
-		
 		
 		try
 		{
@@ -60,6 +58,22 @@ public class GetProcessState extends HttpServlet {
 			}
 			else
 			{
+				p=con.prepareStatement("select finished from candidate where id=?");
+				p.setInt(1, Integer.parseInt(id));
+				
+				rs=p.executeQuery();
+				
+				rs.next();
+				
+				int finished=rs.getInt("finished");
+				
+				if(finished==1)
+				{
+					mainObj.put("finished", true);
+				}
+				else
+				{
+				mainObj.put("finished", false);
 				mainObj.put("started",true);
 				
 				p=con.prepareStatement("select currentqn from candidate where id=?");
@@ -93,6 +107,7 @@ public class GetProcessState extends HttpServlet {
 				
 				mainObj.put("qid",rs.getInt("id"));
 				mainObj.put("question", rs.getString("qndesc"));
+				}
 
 			}
 			out.print(mainObj);

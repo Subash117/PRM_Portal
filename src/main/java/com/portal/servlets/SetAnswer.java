@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.concurrent.TimeUnit;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -48,9 +49,7 @@ public class SetAnswer extends HttpServlet {
         set.setQnNo(Integer.parseInt(request.getParameter("qno")));
         set.setAnswer(request.getParameter("ans"));
         
-        System.out.print(set.answer);
 		
-		JSONObject jo=new JSONObject();
 		
 		try 
 		{
@@ -60,7 +59,30 @@ public class SetAnswer extends HttpServlet {
 			
 			int qnid=set.qnNo;
 			
-			PreparedStatement p=con.prepareStatement("insert into answer(pid,uid,ans,qno) values(?,?,?,?)");
+			PreparedStatement p=con.prepareStatement("select id from answer where uid=? and qno=?");
+			
+			p.setInt(1, Integer.parseInt(id));
+			p.setInt(2, qnid);
+			
+			ResultSet rs=p.executeQuery();
+			
+			int ansid;
+			if(rs.next())
+			{
+			 ansid=rs.getInt("id");
+			 p=con.prepareStatement("update answer set ans=?,status=? where id=?");
+			 
+			 
+			 p.setString(1, set.getAnswer());
+			 p.setString(2,null);
+			 p.setInt(3, ansid);
+			 
+			 p.executeUpdate();
+			}
+			
+			else
+			{
+			p=con.prepareStatement("insert into answer(pid,uid,ans,qno) values(?,?,?,?)");
 			
 			p.setInt(1, Integer.parseInt(pid));
 			p.setInt(2, Integer.parseInt(id));
@@ -68,14 +90,14 @@ public class SetAnswer extends HttpServlet {
 			p.setInt(4, qnid);
 			
 			p.executeUpdate();
+			}
 			
-			System.out.println(qnid);
 			
 			p=con.prepareStatement("select status from answer where qno=?");
 			
 			p.setInt(1, qnid);
 			
-			ResultSet rs=p.executeQuery();
+			rs=p.executeQuery();
 			
 			rs.next();
 			
@@ -88,40 +110,15 @@ public class SetAnswer extends HttpServlet {
 				status=rs.getString("status");
 			}
 			
-			System.out.print("Received Status "+status);
+			System.out.println("Received Status "+status);
 			
-			if(status.equals("correct") || status.equals("partial"))
-			{
-				p=con.prepareStatement("select id from question where id>? and pid=?");
-				
-				p.setInt(1, qnid);
-				p.setInt(2, Integer.parseInt(pid));
-				
-				rs=p.executeQuery();
-				
-				if(rs.next())
-				{
-					qnid=rs.getInt("id");
-					p=con.prepareStatement("update candidate set currentqn=?");
-					
-					p.setInt(1, qnid);
-					
-					System.out.println("Moved to next Question");
-					p.executeUpdate();
-					response.sendRedirect("http://localhost:4200/dashboard");
-				}
-				else
-				{
-					response.getWriter().print("You successfully completed the exam!..");
-				}	
-			}
+			TimeUnit.SECONDS.sleep(2);
 			
+			response.sendRedirect("http://localhost:4200/dashboard");
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		response.getWriter().print(jo);
         
 	}
 

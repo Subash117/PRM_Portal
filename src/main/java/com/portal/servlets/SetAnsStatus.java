@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -33,6 +34,8 @@ public class SetAnsStatus extends HttpServlet {
 		
 		String status =request.getParameter("status");
 		
+		int pid=404,uid,qid;
+		
 		if(id.equals("admin"))
 		{
 			try
@@ -47,8 +50,48 @@ public class SetAnsStatus extends HttpServlet {
 				
 				p.executeUpdate();
 				
-				response.sendRedirect("http://localhost:4200/admin-dashboard");
+				p=con.prepareStatement("select uid,pid,qno from answer where id=?");
+				p.setInt(1, Integer.parseInt(ansid));
+				
+				ResultSet rs=p.executeQuery();
+				rs.next();
+				
+				int qnid=rs.getInt("qno");
+				pid=rs.getInt("pid");
+				uid=rs.getInt("uid");
+				
+				if(status.equals("correct") || status.equals("partial"))
+				{	
+					
+					p=con.prepareStatement("select id from question where id>? and pid=?");
+					
+					p.setInt(1, qnid);
+					p.setInt(2, pid);
+					
+					rs=p.executeQuery();
+					
+					if(rs.next())
+					{
+						qnid=rs.getInt("id");
+						p=con.prepareStatement("update candidate set currentqn=? where id=?");
+						
+						p.setInt(1, qnid);
+						p.setInt(2, uid);
+						
+						System.out.println("Moved to next Question");
+						p.executeUpdate();
+					}
+					else
+					{
+						p=con.prepareStatement("update candidate set finished=1 where id=?");
+						p.setInt(1, uid);
+						
+						p.executeUpdate();
+					}
+				}
+				response.sendRedirect("http://localhost:4200/process/"+pid);
 			}
+			
 			catch(Exception e)
 			{
 				System.out.println(e);

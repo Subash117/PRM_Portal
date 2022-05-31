@@ -25,6 +25,7 @@ public class SignUp extends HttpServlet {
 		String clg=request.getParameter("clg");
 		String year=request.getParameter("year");
 		String pass=request.getParameter("pass");
+		
 		try
 		{ 
 			Class.forName("com.mysql.cj.jdbc.Driver");  
