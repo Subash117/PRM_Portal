@@ -1,0 +1,22 @@
+{{page-title "Results"}}
+<ul class="nav-bar">
+    <li class="nav-item"><LinkTo class="nav-ele" @route="admin-dashboard">Home</LinkTo></li>
+</ul>
+<h1>Results for: {{@model.name}}</h1>
+
+<table>
+    <tr>
+        <th>Qn Id</th>
+        <th>Status</th>
+        <th>Start Time</th>
+        <th>End Time</th>
+    </tr>
+    {{#each @model.results as |result|}}
+        <tr>
+            <td>{{result.qno}}</td>
+            <td>{{result.status}}</td>
+            <td>{{result.start_time}}</td>
+            <td>{{result.end_time}}</td>
+        </tr>
+    {{/each}}
+</table>

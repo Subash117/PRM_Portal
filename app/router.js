@@ -19,4 +19,5 @@ Router.map(function () {
   this.route('dashboard-loading');
   this.route('notfound', { path: '/*path' });
   this.route('finished');
+  this.route('results',{path:'/results/:uid'});
 });

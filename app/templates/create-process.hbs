@@ -1,6 +1,10 @@
 {{page-title "CreateProcess"}}
 
-<form class="container" action="http://localhost:8080/">
+<ul class="nav-bar">
+    <li class="nav-item"><LinkTo class="nav-ele" @route="admin-dashboard">Home</LinkTo></li>
+</ul>
+
+<form class="container" style="width: 80%;" action="http://localhost:8080/">
     <h1>Create Question Set</h1>
     <p>Give a name for the Set: </p>
     <Input @type="text" class="text-box" id="name" @value=""/><br>

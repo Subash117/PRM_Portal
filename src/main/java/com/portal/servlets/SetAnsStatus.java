@@ -62,6 +62,11 @@ public class SetAnsStatus extends HttpServlet {
 				
 				if(status.equals("correct") || status.equals("partial"))
 				{	
+					p=con.prepareStatement("update answer set end_time=current_time where uid=? and qno=?");
+					p.setInt(1, uid);
+					p.setInt(2, qnid);
+					
+					p.executeUpdate();
 					
 					p=con.prepareStatement("select id from question where id>? and pid=?");
 					

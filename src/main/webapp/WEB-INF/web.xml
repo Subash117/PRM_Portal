@@ -143,4 +143,24 @@
     <servlet-name>CheckSignUp</servlet-name>
     <url-pattern>/checksignup</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>SetStartTime</display-name>
+    <servlet-name>SetStartTime</servlet-name>
+    <servlet-class>com.portal.servlets.SetStartTime</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SetStartTime</servlet-name>
+    <url-pattern>/setstarttime</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>GetResult</display-name>
+    <servlet-name>GetResult</servlet-name>
+    <servlet-class>com.portal.servlets.GetResult</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GetResult</servlet-name>
+    <url-pattern>/getresult</url-pattern>
+  </servlet-mapping>
 </web-app>

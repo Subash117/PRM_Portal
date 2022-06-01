@@ -1,6 +1,11 @@
 {{page-title "Admin-Login"}}
 
 {{page-title "Login"}}
+<ul class="nav-bar">
+    <li class="nav-item"><LinkTo class="nav-ele" @route="index">Home</LinkTo></li>
+    <li class="nav-item"><LinkTo class="nav-ele" @route="admin-login">Admin Login</LinkTo></li>
+    <li class="nav-item"><LinkTo class="nav-ele" @route="login">Candidate Login</LinkTo></li>
+</ul>
 <div class="container">
     <form method="post" action="http://localhost:8080/PRM_portal/login">
         <center><h2>Admin Log-in</h2></center>

@@ -12,7 +12,6 @@ export default class AnswersRoute extends Route {
       { credentials: 'include' }
     );
     let data = await response.json();
-    console.log(data);
     return data;
   }
 }

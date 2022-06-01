@@ -31,6 +31,7 @@ export default class DashboardRoute extends Route {
       );
       data = await response.json();
     }
+    console.log(data);
     return data;
   }
 }

@@ -95,18 +95,34 @@ public class GetProcessState extends HttpServlet {
 					currentqn=rs.getInt("currentqn");
 				}
 				
-				p=con.prepareStatement("select id,qndesc from question where id=?");
-				
-				p.setInt(1, currentqn);
-				
-				System.out.println("Current Qn:"+currentqn);
+				p=con.prepareStatement("select * from answer where uid=? and qno=?");
+				p.setInt(1, Integer.parseInt(id));
+				p.setInt(2, currentqn);
 				
 				rs=p.executeQuery();
 				
-				rs.next();
+				if(rs.next())
+				{
+					mainObj.put("showButton", false);
+					p=con.prepareStatement("select id,qndesc from question where id=?");
+					
+					p.setInt(1, currentqn);
+					
+					System.out.println("Current Qn:"+currentqn);
+					
+					rs=p.executeQuery();
+					
+					rs.next();
+					
+					mainObj.put("qid",rs.getInt("id"));
+					mainObj.put("question", rs.getString("qndesc"));
+				}
+				else
+				{
+					mainObj.put("showButton", true);
+				}
 				
-				mainObj.put("qid",rs.getInt("id"));
-				mainObj.put("question", rs.getString("qndesc"));
+				
 				}
 
 			}

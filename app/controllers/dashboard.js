@@ -33,6 +33,10 @@ export default class DashboardController extends Controller {
     });
   }
 
+  @action
+  async startanswering() {
+    this.model.showButton = false;
+  }
   @action test() {
     console.log('Test runs');
     this.loadingmsg =

@@ -6,6 +6,7 @@
         <th>Candidate Id</th>
         <th>Candidate Name</th>
         <th>Login Status</th>
+        <th>Report</th>
     </tr>
     {{#each @model.ques as |candidate|}}
         <tr>
@@ -18,6 +19,7 @@
             {{else}}
                 <td><i style="background-color: #ff0000;">Logged Out</i></td>
             {{/if}}
+            <td><center><LinkTo @route="results" @model={{candidate.id}} class="button">Results</LinkTo></center></td>
         </tr>
     {{/each}}
 </table>
